@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "arduino-cli-backend": {
+      "type": "sse",
+      "url": "http://192.168.0.163/mcp.php",
+      "disabled": false,
+      "alwaysAllow": []
+    }
+  }
+}
