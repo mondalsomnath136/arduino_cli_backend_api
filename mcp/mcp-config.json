@@ -1,0 +1,74 @@
+{
+  "_comment": "Arduino CLI Backend — MCP Server Configuration (Remote Linux Container)",
+  "_description": "Project runs on a TurnKey Linux container. Use HTTP/SSE transport for remote connection.",
+  "_server_url": "Server IP: 192.168.0.163",
+
+  "vs_code_roo_code": {
+    "_file": "%APPDATA%\\Code\\User\\globalStorage\\rooveterinaryinc.roo-cline\\settings\\cline_mcp_settings.json",
+    "_instructions": "Add the 'arduino-cli' block inside the 'mcpServers' object. Uses HTTP transport — no local PHP needed.",
+    "mcpServers": {
+      "arduino-cli": {
+        "url": "http://192.168.0.163/mcp.php",
+        "disabled": false,
+        "alwaysAllow": []
+      }
+    }
+  },
+
+  "antigravity_ide": {
+    "_instructions": "Add as an HTTP/SSE MCP server in Antigravity MCP settings.",
+    "url": "http://192.168.0.163/mcp.php"
+  },
+
+  "claude_desktop": {
+    "_file": "%APPDATA%\\Claude\\claude_desktop_config.json",
+    "_instructions": "Claude Desktop currently only supports STDIO transport. Use the mcp-proxy workaround below if you need Claude Desktop support.",
+    "_workaround": "Install mcp-proxy: npx @modelcontextprotocol/inspector and point it to the HTTP URL",
+    "mcpServers": {
+      "arduino-cli": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "mcp-remote",
+          "http://192.168.0.163/mcp.php"
+        ]
+      }
+    }
+  },
+
+  "generic_http": {
+    "_description": "Any MCP client that supports HTTP/SSE transport",
+    "url": "http://192.168.0.163/mcp.php"
+  },
+
+  "tools_exposed": [
+    "arduino_compile",
+    "arduino_verify",
+    "arduino_compile_status",
+    "arduino_download_binary",
+    "arduino_board_list",
+    "arduino_board_search",
+    "arduino_board_install",
+    "arduino_board_uninstall",
+    "arduino_board_update_index",
+    "arduino_known_boards",
+    "arduino_library_list",
+    "arduino_library_search",
+    "arduino_library_install",
+    "arduino_library_uninstall"
+  ],
+
+  "resources_exposed": [
+    "arduino://status",
+    "arduino://config",
+    "arduino://boards/installed",
+    "arduino://boards/known",
+    "arduino://libraries/installed"
+  ],
+
+  "prompts_exposed": [
+    "compile_sketch",
+    "troubleshoot_error",
+    "board_setup"
+  ]
+}

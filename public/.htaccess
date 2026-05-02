@@ -1,0 +1,20 @@
+# Arduino CLI Backend API — Apache Routing Rules
+# This file handles URL rewriting for the REST API AND allows direct access to mcp.php.
+
+# Enable Rewrite Engine
+Options -Indexes
+RewriteEngine On
+
+# ──────────────────────────────────────────────
+#  MCP Server Endpoint (direct access, no rewrite)
+#  URL: http://YOUR-SERVER-IP/mcp.php
+# ──────────────────────────────────────────────
+RewriteRule ^mcp\.php$ - [L]
+
+# ──────────────────────────────────────────────
+#  REST API Routes
+#  All /api/v1/* requests → index.php
+# ──────────────────────────────────────────────
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L,QSA]
